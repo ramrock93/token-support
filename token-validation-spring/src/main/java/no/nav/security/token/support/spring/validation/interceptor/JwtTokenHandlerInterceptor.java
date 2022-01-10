@@ -1,11 +1,7 @@
 package no.nav.security.token.support.spring.validation.interceptor;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import no.nav.security.token.support.core.exceptions.AnnotationRequiredException;
+import no.nav.security.token.support.core.validation.JwtTokenAnnotationHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationAttributes;
@@ -15,8 +11,10 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import no.nav.security.token.support.core.exceptions.AnnotationRequiredException;
-import no.nav.security.token.support.core.validation.JwtTokenAnnotationHandler;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class JwtTokenHandlerInterceptor implements HandlerInterceptor {
 
@@ -42,6 +40,8 @@ public class JwtTokenHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        System.out.println("YOLO");
+        System.out.println(handler.toString());
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             if (shouldIgnore(handlerMethod.getBean())) {
